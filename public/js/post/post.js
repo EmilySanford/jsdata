@@ -15,19 +15,32 @@ app.config(function($stateProvider) {
 });
 
 // add necessary dependencies 
-app.controller('PostCtrl', function() {
+app.controller('PostCtrl', function($stateParams, Post, $scope, $state) {
+
 
 
 	/* 1. FIND POST
 		use state params to retrieve the post id and attach post object to scope 
 		on controller load 
 	*/
+	Post.find($stateParams.postId)
+	.then(function(post){
+		$scope.post = post;
+	})
+
+
 
 	/*
 		2. DELETE POST 
 		create a function that destroys the post, adds an alert that the post has been 
 		successfully deleted, and redirects to the main state. 
 	*/
+	$scope.delete = function(){
+		Post.destroy($stateParams.postId)
+		.then(function(){
+			$state.go('post', {})})
+		
+	}
 
 	/*
 		3. EDIT POST 

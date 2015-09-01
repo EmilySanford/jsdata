@@ -4,7 +4,12 @@ app.config(function($stateProvider) {
 	$stateProvider.state('create', {
 		url: '/create/:userId',
 		templateUrl: 'js/create/create.html',
-		controller: 'CreateCtrl' 
+		controller: 'CreateCtrl',
+		resolve: {
+			author: function($stateParams, User){
+				return User.find($stateParams.userId)
+			}
+		} 
 		/*
 				add a resolve block that has an author function which 
 				users $stateParams to retrieve the author object
@@ -25,10 +30,15 @@ app.controller('CreateCtrl', function($scope) {
 
 	TODOS: 
 	1 - create the object that the form can use via ng-model
+
   2 - create a function that 
 	 		a) persists the ng-modeled post object 
 			b) changes the state to 'main'  
 
 	*/
+
+	$scope.newPost = {
+		
+	}
 	
 }) 

@@ -5,11 +5,17 @@ app.config(function($stateProvider) {
 		url: '/',
 		templateUrl: '/main.html',
 		controller: 'MainController'
-			// RESOLVE!
+		// resolve: {
+		// 	users: function(User){
+		// 		return User.findAll(); 
+		// 	}
+		// }
 	})
 })
 
-app.controller('MainController', function($scope) {
+app.controller('MainController', function($scope, Post, User) {
+
+	// console.log('u: ', users)
 
  	/*
 		TODOS: 
@@ -18,6 +24,17 @@ app.controller('MainController', function($scope) {
 		and retrieve the data there)
 
  	*/
+ 	 Post.findAll().then(function(posts){
+ 	 	console.log('posts: ', posts)
+ 		$scope.allPosts = posts;
+ 	});
+
+ 	  User.findAll().then(function(users){
+ 		$scope.author = users;
+ 		console.log("the users", users);
+ 	});
+
+
 })
 
 

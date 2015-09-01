@@ -8,7 +8,9 @@ var User = require('../users/user-model');
 
 module.exports = {
   index: function(req, res, next) {
+    console.log("made it here");
     Post.find().exec().then(function(posts) {
+      console.log(posts[0]);
       res.json(posts);
     })
     .then(null, next)
